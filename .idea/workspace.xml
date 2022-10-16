@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="74f69427-0c00-47b4-a3d6-2dcc5e298b66" name="Changes" comment="Configuration with MariaDB, app started, superuser created.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/paradox/paradox/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/paradox/paradox/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pegapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/pegapp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pegapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/pegapp/models.py" afterDir="false" />
-    </list>
+    <list default="true" id="74f69427-0c00-47b4-a3d6-2dcc5e298b66" name="Changes" comment="Images gallery added for every scenario, nb players added." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -38,6 +39,12 @@
     &quot;last_opened_file_path&quot;: &quot;/media/miles/Commun/Studi/15_Django/3_OPC_app&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/paradox/pegapp" />
+      <recent name="$PROJECT_DIR$/paradox" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.runserver">
     <configuration name="makemigrations" type="PythonConfigurationType" factoryName="Python">
       <module name="PARADOX-EG" />
@@ -138,7 +145,21 @@
       <option name="project" value="LOCAL" />
       <updated>1665931181591</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Scenario class created (missing image gallery), added to admin.">
+      <created>1665933417219</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1665933417219</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Images gallery added for every scenario, nb players added.">
+      <created>1665942715609</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1665942715609</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,7 +173,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="HEAD" />
+                        <option value="dev" />
                       </list>
                     </value>
                   </entry>
@@ -197,6 +218,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Project created with django-admin." />
     <MESSAGE value="Configuration with MariaDB, app started, superuser created." />
-    <option name="LAST_COMMIT_MESSAGE" value="Configuration with MariaDB, app started, superuser created." />
+    <MESSAGE value="Scenario class created (missing image gallery), added to admin." />
+    <MESSAGE value="Images gallery added for every scenario, nb players added." />
+    <option name="LAST_COMMIT_MESSAGE" value="Images gallery added for every scenario, nb players added." />
   </component>
 </project>
