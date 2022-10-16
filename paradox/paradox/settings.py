@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'paradox.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'paradox',
+        'USER': 'paradoxuser',
+        'PASSWORD': 'tiapfpEG2022',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
