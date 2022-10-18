@@ -24,3 +24,11 @@ class Scenario(models.Model):
     min_players = models.fields.IntegerField(default=2, validators=[MinValueValidator(1), MaxValueValidator(10)])
     max_players = models.fields.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
     images = models.ManyToManyField(Image)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Room(models.Model):
+    num = models.fields.IntegerField(primary_key=True)
+    scenario = models.ForeignKey(Scenario, null=True, on_delete=models.SET_NULL)
