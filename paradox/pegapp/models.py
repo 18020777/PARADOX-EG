@@ -31,4 +31,4 @@ class Scenario(models.Model):
 
 class Room(models.Model):
     num = models.fields.IntegerField(primary_key=True)
-    scenario = models.ForeignKey(Scenario, null=True, on_delete=models.SET_NULL)
+    scenario = models.ForeignKey(Scenario, blank=True, null=True, on_delete=models.SET_NULL)
