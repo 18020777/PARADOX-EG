@@ -3,11 +3,8 @@
     <div id="content" class="container internal">
         <h1>Home</h1>
     </div>
-    {% comment %} <div id="content" class="placeholder:" {% endcomment %}
-    <ul>
         {% for scenario in scenarios %}
-            <li>{{ scenario.name }}</li>
-            {% comment %} <li><img src="{{ scenario.images }}" alt="" class="picture"/></li> {% endcomment %}
+            {% comment %} {{ scenario.name }} {% endcomment %}
+            <img src="{{ scenario.image.url }}" alt="" class="picture"/>
         {% endfor %}
-    </ul>
 {% endblock %}

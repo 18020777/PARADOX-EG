@@ -5,6 +5,12 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class Image(models.Model):
     image = models.ImageField(upload_to='pegapp/uploads/images/gallery/')
 
+    class Priority(models.TextChoices):
+        PINCIPAL = 'Principal'
+        SECONDARY = 'Secondary'
+
+    priority = models.fields.CharField(max_length=20, choices=Priority.choices)
+
     def __str__(self):
         return str(self.image)
 

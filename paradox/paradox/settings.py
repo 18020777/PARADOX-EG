@@ -36,11 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pegapp',
-    'tailwind',
     'theme',
 ]
 
-TAILWIND_APP_NAME = 'theme'
+# MEDIA_URL = '/'
+# MEDIA_ROOT = BASE_DIR.joinpath('/')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
