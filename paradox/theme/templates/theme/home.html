@@ -1,10 +1,82 @@
 {% extends 'theme/base.html' %}
+
+{% block title %}Accueil{% endblock %}
+
 {% block content %}
-    <div id="content" class="container internal">
-        <h1>Home</h1>
-    </div>
-        {% for scenario in scenarios %}
+<!-- {% for scenario in scenarios %}
             {% comment %} {{ scenario.name }} {% endcomment %}
             <img src="{{ scenario.image.url }}" alt="" class="picture"/>
-        {% endfor %}
+        {% endfor %} -->
+<div class="container-fluid">
+    <header>
+        <nav class="navbar container navbar-expand-lg navbar-dark">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse text-center" id="collapsibleNavId">
+                <ul class="navbar-nav w-100 me-auto mt-2 mt-lg-0 justify-content-lg-around">
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#" aria-current="page">Accueil <span
+                                class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#">Accès</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#">Tarifs</a>
+                    </li>
+                    <li class="nav-item dropdown fs-5">
+                        <a class="nav-link" href="#">Scénarios</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="#">PARADOX</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="mailto:contact@paradox-eg.fr">contact@paradox-eg.fr</a>
+                    </li>
+                    <li class="nav-item fs-5">
+                        <a class="nav-link" href="tel:+33155662310">+33(0) 1 55 66 23 10</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container text-center home-title">
+            <h2 class="p-2">PARADOX ESCAPE GAME</h2>
+            <h5>Nouvelle salle d'Escape Game à Lille !</h5>
+            <h5> Découvrez nos scénarios :</h5>
+        </div>
+    </header>
+    <div class="container p-3">
+        <div id="carouselId" class="col carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                <div class="container">
+                    <div class="carousel-item active">
+                        <img src="../static/img/le-hollandais-volant.png" class="img-fluid rounded-5 mx-auto d-block" alt="">
+                        <div class="carousel-caption d-md-block">
+                            <h3>Le Hollandais Volant</h3>
+                            <button class="btn btn-decouvrir">Découvrir</button>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../static/img/schnapp_laboratoire.jpg" class="img-fluid rounded-5 mx-auto d-block" alt="">
+                        <div class="carousel-caption d-md-block">
+                            <h3>Le Laboratoire du docteur Schnapp</h3>
+                            <button class="btn btn-decouvrir">Découvrir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+<script src="../static/js/bootstrap.min.js" async defer></script>
+
 {% endblock %}
