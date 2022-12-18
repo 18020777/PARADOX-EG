@@ -7,5 +7,5 @@ from pegapp import models as m
 
 
 def base(request):
-    scenarios = m.Image.objects.all()
+    scenarios = m.Scenario.objects.all()
     return render(request, 'theme/home.html', {'scenarios': scenarios})

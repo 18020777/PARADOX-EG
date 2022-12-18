@@ -29,7 +29,8 @@ class Scenario(models.Model):
     difficulty = models.fields.IntegerField(choices=Difficulty.choices)
     min_players = models.fields.IntegerField(default=2, validators=[MinValueValidator(1), MaxValueValidator(10)])
     max_players = models.fields.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    images = models.ManyToManyField(Image, blank=True)
+    gallery = models.ManyToManyField(Image, blank=True)
+    scenery = models.ImageField(upload_to='pegapp/uploads/images/scenery/', default=None)
 
     def __str__(self):
         return str(self.name)
