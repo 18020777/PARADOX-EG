@@ -33,4 +33,29 @@
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
+}
+
+.dropbtn {
+  padding: 10px;
+  font-size: 12px;
+}
+
+.dropdn {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-cnt {
+  position: absolute;
+  min-width: 200px;
+  display: none;
+  z-index: 1;
+}
+
+.dropdn:hover .dropdown-cnt {
+  background-color: black;
+  border: solid;
+  border-radius: 10%;
+  border-color: rgba(180, 115, 57, 0.4);
+  display: block;
 }/*# sourceMappingURL=style.css.map */

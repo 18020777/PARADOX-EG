@@ -1,47 +1,15 @@
-{% extends 'theme/base.html' %}
+{% extends "theme/base.html" %}
 
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
+{% include "theme/header.html" %}
 <div class="container-fluid">
-    <header>
-        <nav class="navbar container navbar-expand-lg navbar-dark">
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse text-center" id="collapsibleNavId">
-                <ul class="navbar-nav w-100 me-auto mt-2 mt-lg-0 justify-content-lg-around">
-                    <li class="nav-item fs-5">
-                        <a class="nav-link" href="#" aria-current="page">Accueil <span
-                                class="visually-hidden">(current)</span></a>
-                    </li>
-                    <li class="nav-item fs-5">
-                        <a class="nav-link" href="#">Accès</a>
-                    </li>
-                    <li class="nav-item fs-5">
-                        <a class="nav-link" href="#">Tarifs</a>
-                    </li>
-                    <li class="nav-item dropdown fs-5">
-                        <a class="nav-link" href="#">Scénarios</a>
-                    </li>
-                    <li class="nav-item fs-5">
-                        <a class="nav-link" href="#">PARADOX</a>
-                    </li>
-                    <li class="nav-item fs-5">
-                        <a class="nav-link" href="mailto:contact@paradox-eg.fr">contact@paradox-eg.fr</a>
-                    </li>
-                    <li class="nav-item fs-5">
-                        <a class="nav-link" href="tel:+33155662310">+33(0) 1 55 66 23 10</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container text-center home-title">
-            <h2 class="p-2">PARADOX ESCAPE GAME</h2>
-            <h5>Nouvelle salle d'Escape Game à Lille !</h5>
-            <h5> Découvrez nos scénarios :</h5>
-        </div>
-    </header>
+    <div class="container text-center home-title">
+        <h2 class="p-2">PARADOX ESCAPE GAME</h2>
+        <h5>Nouvelle salle d'Escape Game à Lille !</h5>
+        <h5>Découvrez nos scénarios :</h5>
+    </div>
     <div class="container p-3">
         <div id="carouselId" class="col carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
@@ -69,6 +37,5 @@
         </div>
     </div>
 </div>
-<script src="../static/js/bootstrap.min.js" async defer></script>
 
 {% endblock %}

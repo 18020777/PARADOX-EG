@@ -1,0 +1,11 @@
+{% extends 'theme/base.html' %}
+
+{% block title %}Scenario{% endblock %}
+
+{% block content %}
+{% include "theme/header.html" %}
+<div class="container-fluid">
+    {{ this_scenario.name }}
+</div>
+
+{% endblock %}

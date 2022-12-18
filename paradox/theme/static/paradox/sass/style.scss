@@ -1,0 +1,68 @@
+$stc_brown: #B47339;
+$stc_brown_a: rgba($stc_brown, 40%);
+
+@mixin pretty-borders {
+  border: solid;
+  border-radius: 10%;
+  border-color: $stc_brown_a;
+}
+
+.btn-decouvrir {
+  background-color: $stc_brown;
+  color: white;
+
+  &:hover {
+    background-color: darken($stc_brown, 10%);
+  }
+}
+
+.navbar-collapse {
+  @include pretty-borders();
+}
+
+.navbar-toggler {
+  color: $stc_brown_a;
+}
+
+.home-title {
+  color: lighten($stc_brown, 10%);
+}
+
+.carousel-control-next-icon {
+  filter: initial;
+}
+
+.carousel {
+  img {
+    min-height: 400px;
+    max-height: 600px;
+    border: solid;
+    border-color: $stc_brown_a;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+
+.dropbtn {
+  padding: 10px;
+  font-size: 12px;
+}
+
+.dropdn {
+  display: inline-block;
+  position: relative
+}
+
+.dropdown-cnt {
+  position: absolute;
+  min-width: 200px;
+  display: none;
+  z-index: 1;
+}
+
+.dropdn:hover .dropdown-cnt {
+  background-color: black;
+  @include pretty-borders();
+  display: block;
+}

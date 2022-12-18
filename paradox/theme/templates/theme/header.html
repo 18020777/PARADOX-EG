@@ -1,0 +1,45 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'paradox/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'paradox/css/style.css' %}">
+
+<header>
+    <nav class="navbar container navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse text-center" id="collapsibleNavId">
+            <ul class="navbar-nav w-100 me-auto mt-2 mt-lg-0 justify-content-lg-around">
+                <li class="nav-item fs-5">
+                    <a class="nav-link" href="{% url 'home' %}" aria-current="page">Accueil <span
+                            class="visually-hidden">(current)</span></a>
+                </li>
+                <li class="nav-item fs-5">
+                    <a class="nav-link" href="#">Accès</a>
+                </li>
+                <li class="nav-item fs-5">
+                    <a class="nav-link" href="#">Tarifs</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div class="dropdn">
+                        <button class="btn nav-link dropbtn fs-5">Scénarios</button>
+                        <div class="dropdown-cnt dropdown-menu dropdown-menu-dark">
+                            {% for scenario in scenarios %}
+                            <a class="dropdown-item nav-link" href="{% url 'scenario-detail' scenario.id %}">{{ scenario.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item fs-5">
+                    <a class="nav-link" href="#">PARADOX</a>
+                </li>
+                <li class="nav-item fs-5">
+                    <a class="nav-link" href="mailto:contact@paradox-eg.fr">contact@paradox-eg.fr</a>
+                </li>
+                <li class="nav-item fs-5">
+                    <a class="nav-link" href="tel:+33155662310">+33(0) 1 55 66 23 10</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
