@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-import pegapp.models as pm
+from pegapp import models as m
 
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('image', 'id')
+    list_display = ('name', 'id', 'scenario')
 
 
 class ScenarioAdmin(admin.ModelAdmin):
@@ -15,6 +15,6 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = ('num', 'scenario')
 
 
-admin.site.register(pm.Image, ImageAdmin)
-admin.site.register(pm.Scenario, ScenarioAdmin)
-admin.site.register(pm.Room, RoomAdmin)
+admin.site.register(m.Image, ImageAdmin)
+admin.site.register(m.Scenario, ScenarioAdmin)
+admin.site.register(m.Room, RoomAdmin)

@@ -1,18 +1,5 @@
-from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-
-
-class Image(models.Model):
-    image = models.ImageField(upload_to='pegapp/uploads/images/gallery/')
-
-    class Priority(models.TextChoices):
-        PINCIPAL = 'Principal'
-        SECONDARY = 'Secondary'
-
-    priority = models.fields.CharField(max_length=20, choices=Priority.choices)
-
-    def __str__(self):
-        return str(self.image)
+from django.db import models
 
 
 class Scenario(models.Model):
@@ -29,7 +16,6 @@ class Scenario(models.Model):
     difficulty = models.fields.IntegerField(choices=Difficulty.choices)
     min_players = models.fields.IntegerField(default=2, validators=[MinValueValidator(1), MaxValueValidator(10)])
     max_players = models.fields.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    gallery = models.ManyToManyField(Image, blank=True)
     scenery = models.ImageField(upload_to='pegapp/uploads/images/scenery/', default=None)
 
     def __str__(self):
@@ -39,3 +25,15 @@ class Scenario(models.Model):
 class Room(models.Model):
     num = models.fields.IntegerField(primary_key=True)
     scenario = models.ForeignKey(Scenario, blank=True, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return str('Room: ' + str(self.num))
+
+
+class Image(models.Model):
+    image = models.ImageField(upload_to='pegapp/uploads/images/gallery/')
+    name = models.fields.CharField(max_length=20, default='No Name Image')
+    scenario = models.ForeignKey(Scenario, blank=True, null=True, default=None, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return str(self.name)
