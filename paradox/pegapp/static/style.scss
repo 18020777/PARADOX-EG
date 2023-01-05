@@ -1,3 +1,5 @@
+@import './scss/bootstrap';
+
 $stc_brown: #B47339;
 $stc_brown_a: rgba($stc_brown, 40%);
 
@@ -36,8 +38,7 @@ $stc_brown_a: rgba($stc_brown, 40%);
   img {
     min-height: 400px;
     max-height: 600px;
-    border: solid;
-    border-color: $stc_brown_a;
+    @include pretty-borders();
     object-fit: cover;
     object-position: center;
   }
