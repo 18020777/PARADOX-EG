@@ -7,5 +7,15 @@
 <div class="container-fluid">
     {{ this_scenario.name }}
 </div>
+<div class="container">
+    {{ this_scenario.description }}
+</div>
+
+<!-- Display every image from a scenario's gallery -->
+<div class="container">
+    {% for image in gallery %}
+        <img src="{{ image.image.url }}" alt="" class="img-fluid rounded-5 mx-auto d-block">
+    {% endfor %}
+</div>
 
 {% endblock %}

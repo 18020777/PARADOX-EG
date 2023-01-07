@@ -14,4 +14,6 @@ def home(request):
 def scenario_detail(request, scn_id):
     scenarios = m.Scenario.objects.all()
     this_scenario = m.Scenario.objects.get(id=scn_id)
-    return render(request, 'pegapp/scenario.html', {'scenarios': scenarios, 'this_scenario': this_scenario})
+    gallery = m.Image.objects.filter(scenario__id=scn_id)
+    return render(request, 'pegapp/scenario.html',
+                  {'scenarios': scenarios, 'this_scenario': this_scenario, 'gallery': gallery})
