@@ -80,13 +80,17 @@ WSGI_APPLICATION = 'paradox.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'paradox',
-        'USER': 'paradoxuser',
-        'PASSWORD': 'tiapfpEG2022',
+        'NAME': 'paradox_db',
+
+        # Following information must be specified in local_settings.py:
+        'USER': 'user',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+AUTH_USER_MODEL = 'pegapp.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -137,3 +141,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+try:
+    from paradox.local_settings import *
+except ImportError:
+    pass
