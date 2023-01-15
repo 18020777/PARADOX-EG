@@ -90,6 +90,7 @@ DATABASES = {
     }
 }
 
+# Custom User class
 AUTH_USER_MODEL = 'pegapp.User'
 
 # Password validation
@@ -109,6 +110,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Login views
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

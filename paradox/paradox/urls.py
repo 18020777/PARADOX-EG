@@ -22,6 +22,7 @@ from pegapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('scenario/<int:scn_id>/', views.scenario_detail, name='scenario-detail'),
+    path('login/', views.LoginPage.as_view(), name='login'),
     path('', views.home, name='home'),
 ]
 
