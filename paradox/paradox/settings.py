@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'compressor',
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(APP_DIR, 'media')
 MEDIA_URL = '/media/'
 
 MIDDLEWARE = [
@@ -84,7 +84,7 @@ DATABASES = {
         'USER': 'paradoxuser',
         'PASSWORD': 'tiapfpEG2022',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '3306',
     }
 }
 
