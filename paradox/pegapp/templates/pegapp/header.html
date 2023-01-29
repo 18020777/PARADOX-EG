@@ -1,42 +1,51 @@
 {% load static %}
 
 <header>
-    <nav class="navbar container navbar-expand-lg navbar-dark">
-        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse text-center" id="collapsibleNavId">
-            <ul class="navbar-nav w-100 me-auto mt-2 mt-lg-0 justify-content-lg-around">
-                <li class="nav-item fs-5">
-                    <a class="nav-link" href="{% url 'home' %}" aria-current="page">Accueil <span
-                            class="visually-hidden">(current)</span></a>
-                </li>
-                <li class="nav-item fs-5">
-                    <a class="nav-link" href="#">Accès</a>
-                </li>
-                <li class="nav-item fs-5">
-                    <a class="nav-link" href="#">Tarifs</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <div class="dropdn">
-                        <button class="btn nav-link dropbtn fs-5">Scénarios</button>
-                        <div class="dropdown-cnt dropdown-menu dropdown-menu-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark {{ navbar_class }}">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'img/logo.png' %}" alt="Paradox Logo" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false"
+                           data-bs-toggle="dropdown" data-bs-animation="ease-out">
+                            Scénarios
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
                             {% for scenario in scenarios %}
-                            <a class="dropdown-item nav-link" href="{% url 'scenario-detail' scenario.id %}">{{ scenario.name }}</a>
+                                <a class="dropdown-item" href="{% url 'scenario-detail' scenario.id %}">
+                                    {{ scenario.name }}
+                                </a>
                             {% endfor %}
-                        </div>
+                        </ul>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-light" type="submit">Réserver</button>
+                <div class="nav-divider ms-3 me-2 opacity-75"></div>
+                <div class="dropdown">
+                    <div class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="currentColor" height="35">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path>
+                        </svg>
                     </div>
-                </li>
-                <li class="nav-item fs-5">
-                    <a class="nav-link" href="#">PARADOX</a>
-                </li>
-                <li class="nav-item fs-5">
-                    <a class="nav-link" href="mailto:contact@paradox-eg.fr">contact@paradox-eg.fr</a>
-                </li>
-                <li class="nav-item fs-5">
-                    <a class="nav-link" href="tel:+33155662310">+33(0) 1 55 66 23 10</a>
-                </li>
-            </ul>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="#">Creer un Compte</a></li>
+                        <li><a class="dropdown-item" href="#">Se Connecter</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 </header>

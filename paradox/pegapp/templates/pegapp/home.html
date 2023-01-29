@@ -2,40 +2,29 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block content %}
-{% include "./header.html" %}
-<div class="container-fluid">
-    <div class="container text-center home-title">
-        <h2 class="p-2">PARADOX ESCAPE GAME</h2>
-        <h5>Nouvelle salle d'Escape Game à Lille !</h5>
-        <h5>Découvrez nos scénarios :</h5>
-    </div>
-    <div class="container p-3">
-        <div id="carouselId" class="col carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" role="listbox">
-                <div class="container">
-
-                    {% for scenario in scenarios %}
-                    <div class="carousel-item {% if scenario == scenarios|first %}active{% endif %}">
-                    <img src="{{ scenario.scenery.url }}" alt="" class="img-fluid rounded-5 mx-auto d-block">
-                    <div class="carousel-caption d-md-block">
-                        <h3>{{ scenario }}</h3>
-                        <button class="btn btn-decouvrir">Découvrir</button>
-                    </div>
-                </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+{% block body %}
+    <div class="vh-100 w-100 home-header">
+        {% with navbar_class="bg-transparent" %}
+            {% include "./header.html" %}
+        {% endwith %}
+        <div class="container home-header-container">
+            <h1 class="home-title fw-bold">Paradox<br>Escape<br>Game</h1>
+            <a class="btn btn-primary" href="#scenarios">Découvrir nos Scénarios</a>
         </div>
     </div>
-</div>
-
+    <div class="container py-5" id="scenarios">
+        <h1 class="mb-3">Scenarios</h1>
+        <div class="row row-cols-1 row-cols-lg-3 justify-content-between">
+            {% for scenario in scenarios %}
+                <div class="card bg-secondary p-0">
+                    <img src="{{ scenario.scenery.url }}" class="card-img-top" alt="Image du scenario: {{ scenario }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ scenario }}</h5>
+                        <p class="card-text">{{ scenario.description|truncatewords:"30" }}</p>
+                        <a href="{% url 'scenario-detail' scenario.id %}" class="btn btn-primary">En savoir plus</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

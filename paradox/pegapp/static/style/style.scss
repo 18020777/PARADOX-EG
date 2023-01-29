@@ -1,0 +1,25 @@
+// Global Selectors
+*, ::before, ::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Import Bootstrap with Custom Variables
+@import "variables";
+@import './bootstrap/bootstrap';
+
+// Import other style files
+@import "header";
+@import "navbar";
+
+// Global Fonts and Style
+@font-face {
+  font-family: "Exo";
+  font-display: swap;
+  src: url("Exo-font.ttf");
+}
+
+body {
+  font-family: Exo, sans-serif;
+}
