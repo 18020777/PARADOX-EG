@@ -80,13 +80,18 @@ WSGI_APPLICATION = 'paradox.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'paradox',
-        'USER': 'paradoxuser',
-        'PASSWORD': 'tiapfpEG2022',
+        'NAME': 'paradox_db',
+
+        # Following information must be specified in local_settings.py:
+        'USER': 'user',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+# Custom User class
+AUTH_USER_MODEL = 'pegapp.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -105,6 +110,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Login views
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
