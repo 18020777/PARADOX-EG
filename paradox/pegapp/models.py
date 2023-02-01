@@ -33,7 +33,7 @@ class Room(models.Model):
 
 class Image(models.Model):
     image = models.ImageField(upload_to='pegapp/uploads/images/gallery/')
-    name = models.fields.CharField(max_length=20, default='No Name Image')
+    name = models.fields.CharField(max_length=20, default="No Name Image")
     scenario = models.ForeignKey(Scenario, blank=True, null=True, default=None, on_delete=models.SET_NULL)
 
     def __str__(self):

@@ -42,8 +42,13 @@
                         </svg>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="#">Creer un Compte</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'account' %}">Mon compte</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Se déconnecter</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'signup' %}">Créer un Compte</a></li>
                         <li><a class="dropdown-item" href="{% url 'login' %}">Se connecter</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

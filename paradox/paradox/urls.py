@@ -23,6 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('scenario/<int:scn_id>/', views.scenario_detail, name='scenario-detail'),
     path('login/', views.LoginPage.as_view(), name='login'),
+    path('signup/', views.SignUpPage.as_view(), name='signup'),
+    path('account/', views.account, name='account'),
+    path('logout/', views.logout_user, name='logout'),
     path('', views.home, name='home'),
 ]
 
