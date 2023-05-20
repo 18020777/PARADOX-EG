@@ -83,3 +83,24 @@ class SignUpPage(View):
             self.message = 'Vérifier le formulaire, certaines informations sont invalides.'
         context = {'scenarios': self.scenarios, 'form': form, 'message': self.message}
         return render(request, self.template_name, context)
+
+
+class BookingPage(View):
+    scenarios = m.Scenario.objects.all()
+    form_class = f.BookingForm
+    template_name = 'pegapp/booking.html'
+    message = ''
+
+    def get(self, request):
+        form = self.form_class
+        context = {'scenarios': self.scenarios, 'form': form, 'message': self.message}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            return redirect('home')
+        else:
+            self.message = 'Vérifier le formulaire, certaines informations sont invalides.'
+        context = {'scenarios': self.scenarios, 'form': form, 'message': self.message}
+        return render(request, self.template_name, context)
