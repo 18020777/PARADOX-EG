@@ -25,7 +25,8 @@ def scenario_detail(request, scn_id):
 def account(request):
     scenarios = m.Scenario.objects.all()
     user = request.user
-    context = {'scenarios': scenarios, 'user': user}
+    bookings = m.Booking.objects.filter(user=user)
+    context = {'scenarios': scenarios, 'user': user, 'bookings': bookings}
     return render(request, 'pegapp/account.html', context)
 
 
@@ -97,10 +98,11 @@ class BookingPage(View):
         return render(request, self.template_name, context)
 
     def post(self, request):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, user=request.user)
         if form.is_valid():
-            return redirect('home')
+            form.save()
+            return redirect('account')
         else:
-            self.message = 'Vérifier le formulaire, certaines informations sont invalides.'
+            self.message = "Vérifier le formulaire, certaines informations sont invalides."
         context = {'scenarios': self.scenarios, 'form': form, 'message': self.message}
         return render(request, self.template_name, context)

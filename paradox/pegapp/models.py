@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-from .utils import TimeChoices
+from pegapp.utils import TimeChoices
 
 
 class Scenario(models.Model):
@@ -67,11 +67,14 @@ class Booking(models.Model):
         available_rooms = total_rooms - total_booked_rooms
 
         if available_rooms <= 0:
-            raise ValidationError(f'Available rooms: {available_rooms}')
+            raise ValidationError(f'Available rooms: {available_rooms}', code="fullbooked")
 
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'
 
 
 class User(AbstractUser):
