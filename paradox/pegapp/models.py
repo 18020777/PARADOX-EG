@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+
+from .utils import TimeChoices
 
 
 class Scenario(models.Model):
@@ -38,6 +41,37 @@ class Image(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class Booking(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    scenario = models.ForeignKey('Scenario', on_delete=models.CASCADE)
+    date = models.DateField()
+    time = models.TimeField(choices=TimeChoices().time_choices)
+    num_players = models.PositiveIntegerField()
+
+    def clean(self):
+        super().clean()
+        self.validate_booking_availability()
+
+    def validate_booking_availability(self):
+        total_rooms = Room.objects.filter(scenario=self.scenario).count()
+
+        booked_rooms = Booking.objects.filter(
+            scenario=self.scenario,
+            date=self.date,
+            time=self.time
+        ).exclude(pk=self.pk)
+
+        total_booked_rooms = booked_rooms.count()
+        available_rooms = total_rooms - total_booked_rooms
+
+        if available_rooms <= 0:
+            raise ValidationError(f'Available rooms: {available_rooms}')
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 
 class User(AbstractUser):

@@ -21,7 +21,12 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = ('num', 'scenario')
 
 
+class BookingAdmin(admin.ModelAdmin):
+    list_display = ('user', 'scenario', 'date', 'time', 'num_players')
+
+
 admin.site.register(m.User, UserAdmin)
 admin.site.register(m.Image, ImageAdmin)
 admin.site.register(m.Scenario, ScenarioAdmin)
 admin.site.register(m.Room, RoomAdmin)
+admin.site.register(m.Booking, BookingAdmin)
