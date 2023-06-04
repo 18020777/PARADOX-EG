@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from pegapp import forms as f
 from pegapp import models as m
@@ -15,7 +15,7 @@ def home(request):
 
 def scenario_detail(request, scn_id):
     scenarios = m.Scenario.objects.all()
-    this_scenario = m.Scenario.objects.get(id=scn_id)
+    this_scenario = get_object_or_404(m.Scenario, id=scn_id)
     gallery = m.Image.objects.filter(scenario__id=scn_id)
     context = {'scenarios': scenarios, 'this_scenario': this_scenario, 'gallery': gallery}
     return render(request, 'pegapp/scenario.html', context)

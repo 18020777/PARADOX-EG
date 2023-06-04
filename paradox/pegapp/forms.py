@@ -35,6 +35,19 @@ class BookingForm(forms.ModelForm):
         self.fields['date'].widget.attrs['min'] = str(datetime.now(timezone(timedelta(hours=0))).date())
         self.user = user
 
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        if date < datetime.now(timezone.utc).date():
+            raise forms.ValidationError("You cannot book a game in the past.", code="pastdate")
+        return date
+
+    def clean_time(self):
+        time = self.cleaned_data.get('time')
+        date = self.cleaned_data.get('date')
+        if date == datetime.now(timezone.utc).date() and time <= datetime.now(timezone.utc).time():
+            raise forms.ValidationError("It's too late to book at this time.", code="pasttime")
+        return time
+
     def save(self, commit=True):
         instance = super().save(commit=False)
         instance.user = self.user

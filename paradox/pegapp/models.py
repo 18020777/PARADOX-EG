@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -16,7 +18,7 @@ class Scenario(models.Model):
 
     name = models.fields.CharField(max_length=50)
     description = models.fields.TextField(default="No description available.", max_length=1000)
-    duration = models.fields.DurationField(default="01:00:00")
+    duration = models.fields.DurationField(default=timedelta(hours=1))
     difficulty = models.fields.IntegerField(choices=Difficulty.choices)
     min_players = models.fields.IntegerField(default=2, validators=[MinValueValidator(1), MaxValueValidator(10)])
     max_players = models.fields.IntegerField(default=5, validators=[MinValueValidator(1), MaxValueValidator(10)])
