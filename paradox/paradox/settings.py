@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pegapp',
     'compressor',
+    'coverage',
 ]
 
 MEDIA_ROOT = os.path.join(APP_DIR, 'media')

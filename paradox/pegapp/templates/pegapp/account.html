@@ -4,12 +4,24 @@
 
 {% block content %}
 {% include "./header.html" %}
-<ul class="">
-    <li class="list-group-item">Nom d'utilisateur: {{ user.username }} <a href="#" class="">Modifier</a></li>
-    <li class="list-group-item">Adresse email: {{ user.email }} <a href="#" class="">Modifier</a></li>
-    <li class="list-group-item">Prénom: {{ user.first_name }} <a href="#" class="">Modifier</a></li>
-    <li class="list-group-item">Nom de famille: {{ user.last_name }} <a href="#" class="">Modifier</a></li>
-    <li class="list-group-item"><a href="#" class="">Modifier le mot de passe</a></li>
-</ul>
+<div class="">
+    <div>Vos réservations :</div>
+    <ul>
+        {% for booking in bookings %}
+        <li class="list-group-item">{{ booking }}<a href="#" class=""> Modifier</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    <div>Informations personnelles :</div>
+    <ul class="">
+        <li class="list-group-item">Nom d'utilisateur: {{ user.username }} <a href="#" class="">Modifier</a></li>
+        <li class="list-group-item">Adresse email: {{ user.email }} <a href="#" class="">Modifier</a></li>
+        <li class="list-group-item">Prénom: {{ user.first_name }} <a href="#" class="">Modifier</a></li>
+        <li class="list-group-item">Nom de famille: {{ user.last_name }} <a href="#" class="">Modifier</a></li>
+        <li class="list-group-item"><a href="#" class="">Modifier le mot de passe</a></li>
+    </ul>
+</div>
 
 {% endblock %}
