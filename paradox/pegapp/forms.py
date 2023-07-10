@@ -13,9 +13,25 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].label = 'Mot de passe'
+        self.fields['password2'].label = 'Confirmation du mot de passe'
+        self.fields['password1'].help_text = '8 caractères minimum.'
+        self.fields['password2'].help_text = 'Veuillez entrer le même mot de passe pour confirmation.'
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = ('username', 'email', 'first_name', 'last_name')
+        labels = {
+            'username': 'Nom d\'utilisateur',
+            'email': 'Adresse e-mail',
+            'first_name': 'Prénom',
+            'last_name': 'Nom de famille',
+        }
+        help_texts = {
+            'username': 'Choisissez un nom d\'utilisateur (caractères acceptés: lettres, chiffres, et @/./+/-/_).',
+        }
 
 
 class BookingForm(forms.ModelForm):

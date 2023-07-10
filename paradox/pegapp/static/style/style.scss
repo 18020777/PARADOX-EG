@@ -27,3 +27,17 @@ body {
 .modal-content {
   background-color: $secondary;
 }
+
+.input-group input, select {
+  width: 100%;
+  padding: 0.1rem 1rem;
+  border-radius: 0.1rem !important;
+  border: 0 !important;
+  background-color: $surface;
+  color: $light;
+}
+
+.list-group-item {
+  background-color: $dark;
+  color: $light;
+}
