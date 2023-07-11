@@ -41,3 +41,5 @@ body {
   background-color: $dark;
   color: $light;
 }
+
+::-webkit-calendar-picker-indicator { filter: invert(80%); }
