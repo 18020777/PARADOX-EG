@@ -88,5 +88,21 @@ class Booking(models.Model):
         return f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'
 
 
+class PricesList(models.Model):
+    prices = models.JSONField(default=dict)
+
+    def save(self, *args, **kwargs):
+        self.pk = 1  # Set the primary key to a fixed value (1 in this case)
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        pass  # Prevent deletion of the instance
+
+    @classmethod
+    def load(cls):
+        instance, _ = cls.objects.get_or_create(pk=1)
+        return instance
+
+
 class User(AbstractUser):
     pass

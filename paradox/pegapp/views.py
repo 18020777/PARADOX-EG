@@ -9,7 +9,8 @@ from pegapp import models as m
 
 def home(request):
     scenarios = m.Scenario.objects.all()
-    context = {'scenarios': scenarios}
+    prices_list = m.PricesList.objects.get(id=1)
+    context = {'scenarios': scenarios, 'prices_list': prices_list}
     return render(request, 'pegapp/home.html', context)
 
 
