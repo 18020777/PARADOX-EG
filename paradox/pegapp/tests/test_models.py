@@ -45,6 +45,30 @@ class BookingModelTest(TestCase):
         with self.assertRaises(ValidationError):
             booking2.full_clean()
 
+    def test_booking_min_players(self):
+        booking = Booking(
+            user=self.user,
+            scenario=self.scenario,
+            date=self.date,
+            time=self.time,
+            num_players=Scenario.objects.get(id=self.scenario.id).min_players - 1
+        )
+
+        with self.assertRaises(ValidationError):
+            booking.full_clean()
+
+    def test_booking_max_players(self):
+        booking = Booking(
+            user=self.user,
+            scenario=self.scenario,
+            date=self.date,
+            time=self.time,
+            num_players=Scenario.objects.get(id=self.scenario.id).max_players + 1
+        )
+
+        with self.assertRaises(ValidationError):
+            booking.full_clean()
+
     def test_save(self):
         booking = Booking(
             user=self.user,

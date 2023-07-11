@@ -4,9 +4,6 @@
 
 {% block content %}
 {% include "./header.html" %}
-{% if form.errors %}
-{{ form.errors }}
-{% endif %}
 <p>{{ message }}</p>
 <div class="container">
     <div class="row justify-content-center">
@@ -17,17 +14,22 @@
                 <div class="input-group w-100">
                     {{ field }}
                     {% if field.errors %}
-                        <small class="form-text text-danger">
-                            {% for error in field.errors %}{{ error }}{% endfor %}
-                        </small>
+                    <small class="form-text text-danger">
+                        {% for error in field.errors %}{{ error }}{% endfor %}
+                    </small>
                     {% else %}
-                        {% if field.help_text %}
-                            <small class="form-text">{{ field.help_text }}</small>
-                        {% endif %}
+                    {% if field.help_text %}
+                    <small class="form-text">{{ field.help_text }}</small>
+                    {% endif %}
                     {% endif %}
                 </div>
             </div>
             {% endfor %}
+            {% if form.non_field_errors %}
+            <small class="form-text text-danger">
+                {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+            </small>
+            {% endif %}
             {% csrf_token %}
             <button type="submit" class="btn btn-primary float-end">Réserver</button>
         </form>

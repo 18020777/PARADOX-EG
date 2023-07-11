@@ -55,6 +55,7 @@ class Booking(models.Model):
     def clean(self):
         super().clean()
         self.validate_booking_availability()
+        self.validate_num_players()
 
     def validate_booking_availability(self):
         total_rooms = Room.objects.filter(scenario=self.scenario).count()
@@ -70,6 +71,14 @@ class Booking(models.Model):
 
         if available_rooms <= 0:
             raise ValidationError(f'Available rooms: {available_rooms}', code="fullbooked")
+
+    def validate_num_players(self):
+        min_players = Scenario.objects.get(id=self.scenario.id).min_players
+        max_players = Scenario.objects.get(id=self.scenario.id).max_players
+
+        if not min_players <= self.num_players <= max_players:
+            raise ValidationError(
+                f'Le nombre de joueurs doit être entre {min_players} et {max_players}.', code="invalid_num_players")
 
     def save(self, *args, **kwargs):
         self.full_clean()

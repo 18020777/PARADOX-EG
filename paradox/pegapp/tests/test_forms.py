@@ -45,6 +45,12 @@ class BookingFormTests(TestCase):
                                                  'time': time(hour=datetime.now().hour), 'num_players': 4})
         self.assertFalse(form.is_valid())
 
+    def test_booking_form_invalid_players(self):
+        form = BookingForm(user=self.user, data={'scenario': self.scenario.pk,
+                                                 'date': datetime.now().date() + timedelta(days=1),
+                                                 'time': time(hour=11), 'num_players': 10})
+        self.assertFalse(form.is_valid())
+
     def test_booking_form_save_method(self):
         form = BookingForm(user=self.user, data={'scenario': self.scenario.pk,
                                                  'date': datetime.now().date() + timedelta(days=1),
