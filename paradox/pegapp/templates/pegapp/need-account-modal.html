@@ -1,0 +1,21 @@
+<!-- Modal -->
+<div class="modal fade" id="needAccountModal" tabindex="-1" aria-labelledby="needAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="needAccountModalLabel">Il vous faut d'abord un compte !</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Votre compte vous permettra de gérer vos réservations, de voir votre historique des parties, et de
+                    bénéficier d'offres de fidélité. Veuillez en créer un, ou vous connecter si vous en avez déjà un.
+                </p>
+                <p class="fst-italic">Nous ne vous enverrons pas de Newsletter ni d'offres promotionnelles par email !</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-outline-light" href="{% url 'login' %}">Se connecter</a>
+                <a class="btn btn-primary" href="{% url 'signup' %}">S'inscrire</a>
+            </div>
+        </div>
+    </div>
+</div>

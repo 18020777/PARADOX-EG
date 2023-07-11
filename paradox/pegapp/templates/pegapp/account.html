@@ -1,0 +1,31 @@
+{% extends "./base.html" %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+{% include "./header.html" %}
+<div class="container m-5">
+    <div class="row justify-content-center">
+        <h5>Vos réservations :</h5>
+        <ul class="list-group list-group-flush">
+            {% for booking in bookings %}
+            <li class="list-group-item">{{ booking }}<a href="#" class=""> Modifier</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<div class="container m-5">
+    <div class="row justify-content-center">
+        <h5>Informations personnelles :</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Nom d'utilisateur: {{ user.username }} <a href="#" class="">Modifier</a></li>
+            <li class="list-group-item">Adresse email: {{ user.email }} <a href="#" class="">Modifier</a></li>
+            <li class="list-group-item">Prénom: {{ user.first_name }} <a href="#" class="">Modifier</a></li>
+            <li class="list-group-item">Nom de famille: {{ user.last_name }} <a href="#" class="">Modifier</a></li>
+            <li class="list-group-item"><a href="#" class="">Modifier le mot de passe</a></li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

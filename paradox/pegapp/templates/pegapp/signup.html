@@ -1,10 +1,9 @@
 {% extends "./base.html" %}
 
-{% block title %}Log-in{% endblock %}
+{% block title %}Sign-up{% endblock %}
 
 {% block content %}
 {% include "./header.html" %}
-
 <p>{{ message }}</p>
 <div class="container">
     <div class="row justify-content-center">
@@ -14,13 +13,21 @@
                 <label class="">{{ field.label }}</label>
                 <div class="input-group w-100">
                     {{ field }}
+                    {% if field.errors %}
+                        <small class="form-text text-danger">
+                            {% for error in field.errors %}{{ error }}{% endfor %}
+                        </small>
+                    {% else %}
+                        {% if field.help_text %}
+                            <small class="form-text">{{ field.help_text }}</small>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary float-end">Se connecter</button>
+            <button type="submit" class="btn btn-primary float-end">S'inscrire</button>
         </form>
     </div>
 </div>
-
 {% endblock %}

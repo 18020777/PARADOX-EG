@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
+
 from pegapp import models as m
 
 User = get_user_model()
@@ -21,7 +22,18 @@ class RoomAdmin(admin.ModelAdmin):
     list_display = ('num', 'scenario')
 
 
+class BookingAdmin(admin.ModelAdmin):
+    list_display = ('user', 'scenario', 'date', 'time', 'num_players')
+
+
+class PricesListAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return False
+
+
 admin.site.register(m.User, UserAdmin)
 admin.site.register(m.Image, ImageAdmin)
 admin.site.register(m.Scenario, ScenarioAdmin)
 admin.site.register(m.Room, RoomAdmin)
+admin.site.register(m.Booking, BookingAdmin)
+admin.site.register(m.PricesList, PricesListAdmin)
