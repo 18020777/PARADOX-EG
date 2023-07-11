@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
+
 from pegapp import forms as f
 from pegapp import models as m
 
@@ -20,6 +21,13 @@ def scenario_detail(request, scn_id):
     gallery = m.Image.objects.filter(scenario__id=scn_id)
     context = {'scenarios': scenarios, 'this_scenario': this_scenario, 'gallery': gallery}
     return render(request, 'pegapp/scenario.html', context)
+
+
+def faq(request):
+    scenarios = m.Scenario.objects.all()
+    faq_elements = m.FAQElement.objects.all()
+    context = {'scenarios': scenarios, 'faq_elements': faq_elements}
+    return render(request, 'pegapp/faq.html', context)
 
 
 @login_required

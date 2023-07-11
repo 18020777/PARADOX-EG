@@ -104,5 +104,13 @@ class PricesList(models.Model):
         return instance
 
 
+class FAQElement(models.Model):
+    question = models.fields.CharField(max_length=200)
+    answer = models.fields.CharField(max_length=1000)
+
+    def __str__(self):
+        return str(self.question)
+
+
 class User(AbstractUser):
     pass

@@ -27,6 +27,7 @@ urlpatterns = [
     path('account/', views.account, name='account'),
     path('logout/', views.logout_user, name='logout'),
     path('book/', views.BookingPage.as_view(), name='book'),
+    path('faq/', views.faq, name='faq'),
     path('', views.home, name='home'),
 ]
 

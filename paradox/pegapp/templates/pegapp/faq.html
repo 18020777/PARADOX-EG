@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+
+{% block title %}FAQ{% endblock %}
+
+{% block content %}
+{% include "./header.html" %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="list-group list-group-flush">
+            {% for faq_element in faq_elements %}
+            <li class="list-group-item">
+                <h3 class="mb-3">{{ faq_element.question }}</h3>
+                <h5>{{ faq_element.answer }}</h5>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -31,9 +31,14 @@ class PricesListAdmin(admin.ModelAdmin):
         return False
 
 
+class FAQElementAdmin(admin.ModelAdmin):
+    list_display = ('question', 'answer')
+
+
 admin.site.register(m.User, UserAdmin)
 admin.site.register(m.Image, ImageAdmin)
 admin.site.register(m.Scenario, ScenarioAdmin)
 admin.site.register(m.Room, RoomAdmin)
 admin.site.register(m.Booking, BookingAdmin)
 admin.site.register(m.PricesList, PricesListAdmin)
+admin.site.register(m.FAQElement, FAQElementAdmin)
