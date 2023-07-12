@@ -130,3 +130,6 @@ dmypy.json
 
 # Workspace
 .idea/
+
+# CACHE
+CACHE/

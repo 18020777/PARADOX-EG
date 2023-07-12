@@ -1,4 +1,21 @@
 .nav-divider {
   height: 30px;
   border: 1px solid $light;
+  @include media-breakpoint-down(lg) {
+    border: none;
+  }
+}
+
+.navbar-collapse {
+  @include media-breakpoint-down(lg) {
+    z-index: 100000;
+    backdrop-filter: blur(1rem);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(2rem);
 }

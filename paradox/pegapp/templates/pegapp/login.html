@@ -3,10 +3,8 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
-{% include "./header.html" %}
 
 <p>{{ message }}</p>
-<div class="container">
     <div class="row justify-content-center">
         <form class="col-11 col-md-8 col-lg-5" method="post">
             {% for field in form %}
@@ -21,6 +19,5 @@
             <button type="submit" class="btn btn-primary float-end">Se connecter</button>
         </form>
     </div>
-</div>
 
 {% endblock %}

@@ -4,19 +4,17 @@
 
 {% block body %}
 <div class="vh-100 w-100 home-header">
-    {% with navbar_class="bg-transparent" %}
     {% include "./header.html" %}
-    {% endwith %}
-    <div class="container home-header-container">
-        <h1 class="home-title fw-bold">Paradox<br>Escape<br>Game</h1>
+    <div class="container home-header-container text-center text-lg-start">
+        <h1 class="home-title fw-bold mb-3">Paradox<br>Escape<br>Game</h1>
         <a class="btn btn-primary" href="#scenarios">Découvrir nos Scénarios</a>
     </div>
 </div>
-<div class="container py-5" id="scenarios">
-    <h1 class="mb-3">Scenarios</h1>
+<div class="container py-5 px-4" id="scenarios">
+    <h1 class="mb-3 text-center text-lg-start">Scenarios</h1>
     <div class="row row-cols-1 row-cols-lg-3 justify-content-between">
         {% for scenario in scenarios %}
-        <div class="card bg-secondary p-0">
+        <div class="card bg-secondary p-0 mb-3">
             <img src="{{ scenario.scenery.url }}" class="card-img-top" alt="Image du scenario: {{ scenario }}">
             <div class="card-body">
                 <h5 class="card-title">{{ scenario }}</h5>
@@ -28,10 +26,10 @@
     </div>
 </div>
 <div class="container py-5" id="tarifs">
-    <h1 class="mb-3">Tarifs</h1>
+    <h1 class="mb-3 text-center text-lg-start">Tarifs</h1>
     <ul class="list-group list-group-flush">
         {% for key, value in prices_list.prices.items %}
-        <li class="list-group-item">{{ key }} joueurs : {{ value }} €/joueur</li>
+        <li class="list-group-item text-center text-lg-start">{{ key }} joueurs : {{ value }} €/joueur</li>
         {% endfor %}
     </ul>
 </div>

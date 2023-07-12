@@ -1,7 +1,8 @@
 {% load static %}
-
+<div class="py-3"></div>
+<div class="py-4"></div>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark {{ navbar_class }}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="{% static 'img/logo.png' %}" alt="Paradox Logo" height="50">
@@ -23,7 +24,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             {% for scenario in scenarios %}
-                                <a class="dropdown-item" href="{% url 'scenario-detail' scenario.id %}">
+                                <a class="dropdown-item text-wrap" href="{% url 'scenario-detail' scenario.id %}">
                                     {{ scenario.name }}
                                 </a>
                             {% endfor %}

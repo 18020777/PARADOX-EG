@@ -43,3 +43,8 @@ body {
 }
 
 ::-webkit-calendar-picker-indicator { filter: invert(80%); }
+
+.text-justify {
+  text-align: justify;
+  text-justify: distribute;
+}
