@@ -16,8 +16,19 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from pegapp import views
+from django.urls import path, include
+from rest_framework import routers
+
+from pegapp import views, apiviews
+
+# Ici nous créons notre routeur
+router = routers.SimpleRouter()
+# Puis lui déclarons une url basée sur le mot clé ‘scenario’ et notre view
+# afin que l’url générée soit celle que nous souhaitons ‘/api/scenarios/’
+router.register('scenario', apiviews.ScenarioViewset, basename='scenario')
+router.register('booking', apiviews.BookingViewset, basename='booking')
+router.register('room', apiviews.RoomViewset, basename='room')
+router.register('prices', apiviews.PricesViewset, basename='prices')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +40,7 @@ urlpatterns = [
     path('book/', views.BookingPage.as_view(), name='book'),
     path('book/<int:scenario_id>/', views.BookingPage.as_view(), name='book'),
     path('faq/', views.faq, name='faq'),
+    path('api/', include(router.urls)),
     path('', views.home, name='home'),
 ]
 

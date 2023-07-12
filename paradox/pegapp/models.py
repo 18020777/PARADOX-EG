@@ -103,6 +103,9 @@ class PricesList(models.Model):
         instance, _ = cls.objects.get_or_create(pk=1)
         return instance
 
+    def __str__(self):
+        return str(self.prices)
+
 
 class FAQElement(models.Model):
     question = models.fields.CharField(max_length=200)
@@ -113,4 +116,5 @@ class FAQElement(models.Model):
 
 
 class User(AbstractUser):
-    pass
+    def __str__(self):
+        return str(self.username)

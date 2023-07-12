@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'pegapp',
     'compressor',
     'coverage',
+    'rest_framework',
 ]
 
 MEDIA_ROOT = os.path.join(APP_DIR, 'media')
