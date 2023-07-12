@@ -101,8 +101,12 @@ class BookingPage(View):
     template_name = 'pegapp/booking.html'
     message = ''
 
-    def get(self, request):
-        form = self.form_class
+    def get(self, request, scenario_id=0):
+        if scenario_id:
+            scenario = m.Scenario.objects.get(id=scenario_id)
+            form = self.form_class(initial={'scenario': scenario})
+        else:
+            form = self.form_class
         context = {'scenarios': self.scenarios, 'form': form, 'message': self.message}
         return render(request, self.template_name, context)
 

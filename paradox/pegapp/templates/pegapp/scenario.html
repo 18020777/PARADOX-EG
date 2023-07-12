@@ -27,6 +27,7 @@
         <div class="col">
             <h1 class="text-center text-lg-start">{{ this_scenario.name }}</h1>
             <p class="text-justify">{{ this_scenario.description }}</p>
+            <a href="{% url 'book' scenario_id=this_scenario.id %}" class="btn btn-primary">Réserver</a>
         </div>
     </div>
 </div>
