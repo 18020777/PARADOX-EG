@@ -4,35 +4,38 @@
 
 {% block content %}
 <p>{{ message }}</p>
-<div class="container">
-    <div class="row justify-content-center">
-        <form class="col-11 col-md-8 col-lg-5" method="post">
-            {% for field in form %}
-            <div class="w-100 mb-3">
-                <label class="">{{ field.label }}</label>
-                <div class="input-group w-100">
-                    {{ field }}
-                    {% if field.errors %}
-                    <small class="form-text text-danger">
-                        {% for error in field.errors %}{{ error }}{% endfor %}
-                    </small>
-                    {% else %}
-                    {% if field.help_text %}
-                    <small class="form-text">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% endif %}
-                </div>
+<div class="row justify-content-center" id="booking">
+    <form class="col-11 col-md-8 col-lg-5" method="post">
+        {% for field in form %}
+        <div class="w-100 mt-3">
+            <label class="">{{ field.label }}</label>
+            <div class="input-group w-100">
+                {{ field }}
+                {% if field.errors %}
+                <small class="form-text text-danger">
+                    {% for error in field.errors %}{{ error }}{% endfor %}
+                </small>
+                {% else %}
+                {% if field.help_text %}
+                <small class="form-text">{{ field.help_text }}</small>
+                {% endif %}
+                {% endif %}
             </div>
-            {% endfor %}
-            {% if form.non_field_errors %}
-            <small class="form-text text-danger">
-                {% for error in form.non_field_errors %}{{ error }}{% endfor %}
-            </small>
-            {% endif %}
-            {% csrf_token %}
+        </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <small class="form-text text-danger">
+            {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+        </small>
+        {% endif %}
+        {% csrf_token %}
+        <small id="players_box"></small>
+
+        <div class="float-end mt-3">
+            <p>Prix Total: <span id="price_box"></span></p>
             <button type="submit" class="btn btn-primary float-end">Réserver</button>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 {% endblock %}

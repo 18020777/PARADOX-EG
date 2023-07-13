@@ -1,7 +1,14 @@
+from datetime import datetime
+
+from django.utils import timezone
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 
 from pegapp import models as m
 from pegapp import serializers as s
+from pegapp.permissions import IsAdminAuthenticated
+from pegapp.utils import TimeChoices
 
 
 class ScenarioViewset(ReadOnlyModelViewSet):
@@ -14,6 +21,7 @@ class ScenarioViewset(ReadOnlyModelViewSet):
 
 class BookingViewset(ModelViewSet):
     serializer_class = s.BookingSerializer
+    # permission_classes = [IsAdminAuthenticated]
 
     def get_queryset(self):
         queryset = m.Booking.objects.all()
@@ -37,6 +45,31 @@ class BookingViewset(ModelViewSet):
         if num_players is not None:
             queryset = queryset.filter(num_players=num_players)
         return queryset
+
+
+class AvailabilityView(APIView):
+
+    @staticmethod
+    def get(request):
+        scenario = request.GET.get('scenario')
+        date = request.GET.get('date')
+
+        if scenario is not None and date is not None and datetime.strptime(date,
+                                                                           '%Y-%m-%d').date() >= timezone.now().date():
+            all_times = TimeChoices().time_choices
+            av_times = []
+
+            for time in all_times:
+                total_rooms = m.Room.objects.filter(scenario=scenario).count()
+                booked_rooms = m.Booking.objects.filter(scenario=scenario, date=date, time=time[0])
+                total_booked_rooms = booked_rooms.count()
+                if total_rooms - total_booked_rooms > 0:
+                    av_times.append(time)
+
+            return Response(av_times)
+
+        else:
+            raise ValueError('Missing or wrong parameter')
 
 
 class RoomViewset(ReadOnlyModelViewSet):

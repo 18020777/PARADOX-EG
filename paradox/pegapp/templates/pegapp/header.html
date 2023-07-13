@@ -24,7 +24,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             {% for scenario in scenarios %}
-                                <a class="dropdown-item text-wrap" href="{% url 'scenario-detail' scenario.id %}">
+                                <a class="dropdown-item text-wrap" href="{% url 'scenario_detail' scenario.id %}">
                                     {{ scenario.name }}
                                 </a>
                             {% endfor %}

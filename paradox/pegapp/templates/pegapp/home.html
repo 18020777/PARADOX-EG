@@ -19,7 +19,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ scenario }}</h5>
                 <p class="card-text">{{ scenario.description|truncatewords:"30" }}</p>
-                <a href="{% url 'scenario-detail' scenario.id %}" class="btn btn-primary">En savoir plus</a>
+                <a href="{% url 'scenario_detail' scenario.id %}" class="btn btn-primary">En savoir plus</a>
             </div>
         </div>
         {% endfor %}

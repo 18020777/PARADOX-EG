@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from pegapp import views, apiviews
 
@@ -25,14 +26,14 @@ from pegapp import views, apiviews
 router = routers.SimpleRouter()
 # Puis lui déclarons une url basée sur le mot clé ‘scenario’ et notre view
 # afin que l’url générée soit celle que nous souhaitons ‘/api/scenarios/’
-router.register('scenario', apiviews.ScenarioViewset, basename='scenario')
-router.register('booking', apiviews.BookingViewset, basename='booking')
-router.register('room', apiviews.RoomViewset, basename='room')
-router.register('prices', apiviews.PricesViewset, basename='prices')
+router.register('scenario', apiviews.ScenarioViewset, basename='api_scenario')
+router.register('booking', apiviews.BookingViewset, basename='api_booking')
+router.register('room', apiviews.RoomViewset, basename='api_room')
+router.register('prices', apiviews.PricesViewset, basename='api_prices')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('scenario/<int:scn_id>/', views.scenario_detail, name='scenario-detail'),
+    path('scenario/<int:scn_id>/', views.scenario_detail, name='scenario_detail'),
     path('login/', views.LoginPage.as_view(), name='login'),
     path('signup/', views.SignUpPage.as_view(), name='signup'),
     path('account/', views.account, name='account'),
@@ -40,7 +41,10 @@ urlpatterns = [
     path('book/', views.BookingPage.as_view(), name='book'),
     path('book/<int:scenario_id>/', views.BookingPage.as_view(), name='book'),
     path('faq/', views.faq, name='faq'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls)),
+    path('api/availability/', apiviews.AvailabilityView.as_view(), name='availability'),
     path('', views.home, name='home'),
 ]
 

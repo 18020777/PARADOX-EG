@@ -51,6 +51,7 @@ class Booking(models.Model):
     date = models.DateField()
     time = models.TimeField(choices=TimeChoices().time_choices)
     num_players = models.PositiveIntegerField()
+    price = models.fields.DecimalField(default=0.00, decimal_places=2, max_digits=5, editable=False)
 
     def clean(self):
         super().clean()
@@ -80,8 +81,14 @@ class Booking(models.Model):
             raise ValidationError(
                 f'Le nombre de joueurs doit être entre {min_players} et {max_players}.', code="invalid_num_players")
 
+    def calculate_price(self):
+        prices_list = PricesList.objects.get(id=1).prices
+        player_price = prices_list.pop(str(self.num_players))
+        self.price = player_price * self.num_players
+
     def save(self, *args, **kwargs):
         self.full_clean()
+        self.calculate_price()
         super().save(*args, **kwargs)
 
     def __str__(self):

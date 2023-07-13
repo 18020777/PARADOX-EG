@@ -44,6 +44,9 @@ class BookingForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['date'] = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
         self.fields['date'].widget.attrs['min'] = str(datetime.now(timezone(timedelta(hours=0))).date())
+        self.fields['num_players'].widget.attrs['value'] = 2
+        self.fields['num_players'].widget.attrs['min'] = 2
+        self.fields['num_players'].widget.attrs['max'] = 10
         self.user = user
 
     def clean_date(self):
