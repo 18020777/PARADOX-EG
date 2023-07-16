@@ -12,21 +12,18 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(923, 711)
-        self.buttonBox = QtWidgets.QDialogButtonBox(parent=MainWindow)
-        self.buttonBox.setGeometry(QtCore.QRect(260, 290, 341, 32))
-        self.buttonBox.setOrientation(QtCore.Qt.Orientation.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.StandardButton.Cancel|QtWidgets.QDialogButtonBox.StandardButton.Ok)
-        self.buttonBox.setObjectName("buttonBox")
+        MainWindow.resize(777, 501)
+        self.pushButton = QtWidgets.QPushButton(parent=MainWindow)
+        self.pushButton.setGeometry(QtCore.QRect(340, 260, 80, 22))
+        self.pushButton.setObjectName("pushButton")
 
         self.retranslateUi(MainWindow)
-        self.buttonBox.accepted.connect(MainWindow.accept) # type: ignore
-        self.buttonBox.rejected.connect(MainWindow.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Dialog"))
+        self.pushButton.setText(_translate("MainWindow", "PushButton"))
 
 
 if __name__ == "__main__":

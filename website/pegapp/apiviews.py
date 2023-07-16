@@ -1,13 +1,17 @@
 from datetime import datetime
 
 from django.utils import timezone
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 
 from pegapp import models as m
 from pegapp import serializers as s
-from pegapp.permissions import IsAdminAuthenticated
+from pegapp.permissions import IsStaffAuthenticated, IsAdminAuthenticated
 from pegapp.utils import TimeChoices
 
 
@@ -21,7 +25,8 @@ class ScenarioViewset(ReadOnlyModelViewSet):
 
 class BookingViewset(ModelViewSet):
     serializer_class = s.BookingSerializer
-    # permission_classes = [IsAdminAuthenticated]
+
+    permission_classes = [IsStaffAuthenticated]
 
     def get_queryset(self):
         queryset = m.Booking.objects.all()
@@ -89,3 +94,36 @@ class PricesViewset(ReadOnlyModelViewSet):
 
     def get_queryset(self):
         return m.PricesList.objects.filter(id=1)
+
+
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+        })
+
+
+class IsStaffView(APIView):
+    permission_classes = [IsStaffAuthenticated]
+
+    @staticmethod
+    def get(request):
+        return Response({
+            'is_staff': True,
+        })
+
+
+class IsAdminView(APIView):
+    permission_classes = [IsAdminAuthenticated]
+
+    @staticmethod
+    def get(request):
+        return Response({
+            'is_admin': True,
+        })

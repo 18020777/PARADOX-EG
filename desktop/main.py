@@ -1,13 +1,17 @@
 import sys
 
 from PyQt6.QtWidgets import QApplication
-
-from app import AppWindow
+from app import LoginWindow, MainWindow
 
 
 def main():
     app = QApplication(sys.argv)
-    window = AppWindow()
+
+    def on_login_successful():
+        main_window = MainWindow()
+        main_window.show()
+
+    window = LoginWindow(login_callback=on_login_successful)
     window.show()
     sys.exit(app.exec())
 

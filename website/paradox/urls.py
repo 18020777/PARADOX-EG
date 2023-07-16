@@ -41,10 +41,12 @@ urlpatterns = [
     path('book/', views.BookingPage.as_view(), name='book'),
     path('book/<int:scenario_id>/', views.BookingPage.as_view(), name='book'),
     path('faq/', views.faq, name='faq'),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', apiviews.CustomAuthToken.as_view(), name='api_token_auth'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls)),
-    path('api/availability/', apiviews.AvailabilityView.as_view(), name='availability'),
+    path('api/availability/', apiviews.AvailabilityView.as_view(), name='api_availability'),
+    path('api/is_staff/', apiviews.IsStaffView.as_view(), name='api_is_staff'),
+    path('api/is_admin/', apiviews.IsAdminView.as_view(), name='api_is_admin'),
     path('', views.home, name='home'),
 ]
 
