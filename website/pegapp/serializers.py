@@ -15,6 +15,11 @@ class BookingSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'scenario', 'date', 'time', 'num_players',)
 
 
+class BookingIdSerializer(serializers.Serializer):
+    booking_id = serializers.IntegerField()
+    action = serializers.CharField(max_length=20)
+
+
 class PricesListSerializer(serializers.ModelSerializer):
     class Meta:
         model = m.PricesList

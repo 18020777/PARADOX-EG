@@ -12,24 +12,32 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(777, 501)
-        self.pushButton = QtWidgets.QPushButton(parent=MainWindow)
-        self.pushButton.setGeometry(QtCore.QRect(340, 260, 80, 22))
-        self.pushButton.setObjectName("pushButton")
+        MainWindow.setStyleSheet("background-color: #1e1e1e;\n"
+"    color: #b8b8b8;\n"
+"    font-family: Arial;")
+        self.verticalLayout = QtWidgets.QVBoxLayout(MainWindow)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.bookingList = QtWidgets.QListWidget(parent=MainWindow)
+        self.bookingList.setStyleSheet("background-color: #1e1e1e;\n"
+"       color: #b8b8b8;\n"
+"       font-family: Arial;\n"
+"       selection-background-color: #3A3238;\n"
+"       selection-color: #b8b8b8;")
+        self.bookingList.setObjectName("bookingList")
+        self.verticalLayout.addWidget(self.bookingList)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Dialog"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Booking List"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QDialog()
+    MainWindow = QtWidgets.QWidget()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()

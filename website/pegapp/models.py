@@ -1,4 +1,4 @@
-from datetime import timedelta, datetime
+from datetime import timedelta
 
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
@@ -54,6 +54,9 @@ class Booking(models.Model):
     time = models.TimeField(choices=TimeChoices().time_choices)
     num_players = models.PositiveIntegerField()
     price = models.fields.DecimalField(default=0.00, decimal_places=2, max_digits=5, editable=False)
+    start_time = models.DateTimeField(default=None, blank=True, null=True, editable=False)
+    gameover_time = models.DateTimeField(default=None, blank=True, null=True, editable=False)
+    chrono = models.fields.DurationField(default=None, blank=True, null=True, editable=False)
 
     def clean(self):
         super().clean()
@@ -94,14 +97,24 @@ class Booking(models.Model):
         super().save(*args, **kwargs)
 
     def is_active(self):
-        date_s = datetime.strptime(str(self.date), '%Y-%m-%d').date()
-        time_s = datetime.strptime(str(self.time), '%H:%M:%S').time()
-        duration = Scenario.objects.get(id=self.scenario.id).duration
-        (h, m, s) = str(duration).split(':')
-        delta = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
-        game_over_timestamp = (datetime.combine(date_s, time_s) + delta).timestamp()
-        now_timestamp = localtime().timestamp()
-        return game_over_timestamp >= now_timestamp
+        return self.chrono is not None
+
+    def start_game(self):
+        try:
+            self.start_time = localtime()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+    def end_game(self):
+        if self.start_time is not None:
+            try:
+                self.gameover_time = localtime()
+                time_delta = self.gameover_time - self.start_time
+                self.chrono = str(time_delta).split(".")[0]
+            except Exception as e:
+                print(f"An error occurred: {e}")
+        else:
+            print('ERROR: The game has not started.')
 
     def __str__(self):
         return f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'

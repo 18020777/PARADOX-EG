@@ -47,6 +47,7 @@ urlpatterns = [
     path('api/availability/', apiviews.AvailabilityView.as_view(), name='api_availability'),
     path('api/is_staff/', apiviews.IsStaffView.as_view(), name='api_is_staff'),
     path('api/is_admin/', apiviews.IsAdminView.as_view(), name='api_is_admin'),
+    path('api/booking_action/', apiviews.BookingActionAPIView.as_view(), name='api_booking_action'),
     path('', views.home, name='home'),
 ]
 

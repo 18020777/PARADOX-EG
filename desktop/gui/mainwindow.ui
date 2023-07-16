@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QDialog" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>777</width>
-    <height>501</height>
-   </rect>
-  </property>
+ <widget class="QWidget" name="MainWindow">
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Booking List</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>340</x>
-     <y>260</y>
-     <width>80</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>PushButton</string>
-   </property>
-  </widget>
+  <property name="styleSheet">
+   <string notr="true">background-color: #1e1e1e;
+    color: #b8b8b8;
+    font-family: Arial;</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QListWidget" name="bookingList">
+     <property name="styleSheet">
+      <string notr="true">background-color: #1e1e1e;
+       color: #b8b8b8;
+       font-family: Arial;
+       selection-background-color: #3A3238;
+       selection-color: #b8b8b8;</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

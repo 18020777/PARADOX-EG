@@ -25,7 +25,6 @@ class ScenarioViewset(ReadOnlyModelViewSet):
 
 class BookingViewset(ModelViewSet):
     serializer_class = s.BookingSerializer
-
     permission_classes = [IsStaffAuthenticated]
 
     def get_queryset(self):
@@ -50,6 +49,27 @@ class BookingViewset(ModelViewSet):
         if num_players is not None:
             queryset = queryset.filter(num_players=num_players)
         return queryset
+
+
+class BookingActionAPIView(APIView):
+    @staticmethod
+    def post(request):
+        serializer = s.BookingIdSerializer(data=request.data)
+        if serializer.is_valid():
+            booking_id = serializer.validated_data['booking_id']
+            action = serializer.validated_data['action']
+            try:
+                booking = m.Booking.objects.get(id=booking_id)
+                if action == 'start_game':
+                    booking.start_game()
+                elif action == 'end_game':
+                    booking.end_game()
+                else:
+                    return Response({'message': f'Action {action} could not be performed'})
+                return Response({'message': 'Action performed successfully.'})
+            except m.Booking.DoesNotExist:
+                return Response({'message': 'Booking not found.'}, status=404)
+        return Response(serializer.errors, status=400)
 
 
 class AvailabilityView(APIView):
