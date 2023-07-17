@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from pegapp.forms import SignUpForm, BookingForm
-from pegapp.models import Scenario, Room
+from pegapp.models import Scenario, Room, PricesList
 
 
 class SignUpFormTests(TestCase):
@@ -26,6 +26,8 @@ class BookingFormTests(TestCase):
         self.user = get_user_model().objects.create_user(username='testuser', password='testpassword')
         self.scenario = Scenario.objects.create(name='Test Scenario', difficulty=Scenario.Difficulty.normal)
         self.room = Room.objects.create(num=1, scenario=self.scenario)
+        self.price_list = PricesList.objects.create(
+            prices={"2": 38, "3": 32, "4": 27, "5": 23, "6": 21, "7": 20, "8": 19, "9": 18, "10": 17})
 
     def test_booking_form_valid_data(self):
         form = BookingForm(user=self.user, data={'scenario': self.scenario.pk,

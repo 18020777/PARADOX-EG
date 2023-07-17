@@ -96,8 +96,8 @@ class Booking(models.Model):
         self.calculate_price()
         super().save(*args, **kwargs)
 
-    def is_active(self):
-        return self.chrono is not None
+    # def is_active(self):
+    #     return self.chrono is not None
 
     def start_game(self):
         try:
