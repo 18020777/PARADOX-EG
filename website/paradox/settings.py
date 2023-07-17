@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*d@(7&jnroqo-snrc20&_rhvb-i6s@8&&%9ecgd$d6oi5!-4c1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 # Application definition
 
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'paradox.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(APP_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
