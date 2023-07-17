@@ -1,13 +1,15 @@
 from datetime import datetime
 
 from django.utils import timezone
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 
 from pegapp import models as m
 from pegapp import serializers as s
-from pegapp.permissions import IsAdminAuthenticated
+import pegapp.permissions as perm
 from pegapp.utils import TimeChoices
 
 
@@ -19,9 +21,18 @@ class ScenarioViewset(ReadOnlyModelViewSet):
         return queryset
 
 
+class UserViewset(ReadOnlyModelViewSet):
+    serializer_class = s.UserSerializer
+    permission_classes = [perm.HasAnId, perm.IsStaffAuthenticated]
+
+    def get_queryset(self):
+        queryset = m.User.objects.all()
+        return queryset
+
+
 class BookingViewset(ModelViewSet):
     serializer_class = s.BookingSerializer
-    # permission_classes = [IsAdminAuthenticated]
+    permission_classes = [perm.IsStaffAuthenticated]
 
     def get_queryset(self):
         queryset = m.Booking.objects.all()
@@ -45,6 +56,27 @@ class BookingViewset(ModelViewSet):
         if num_players is not None:
             queryset = queryset.filter(num_players=num_players)
         return queryset
+
+
+class BookingActionAPIView(APIView):
+    @staticmethod
+    def post(request):
+        serializer = s.BookingIdSerializer(data=request.data)
+        if serializer.is_valid():
+            booking_id = serializer.validated_data['booking_id']
+            action = serializer.validated_data['action']
+            try:
+                booking = m.Booking.objects.get(id=booking_id)
+                if action == 'start_game':
+                    booking.start_game()
+                elif action == 'end_game':
+                    booking.end_game()
+                else:
+                    return Response({'message': f'Action {action} could not be performed'})
+                return Response({'message': 'Action performed successfully.'})
+            except m.Booking.DoesNotExist:
+                return Response({'message': 'Booking not found.'}, status=404)
+        return Response(serializer.errors, status=400)
 
 
 class AvailabilityView(APIView):
@@ -89,3 +121,36 @@ class PricesViewset(ReadOnlyModelViewSet):
 
     def get_queryset(self):
         return m.PricesList.objects.filter(id=1)
+
+
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+        })
+
+
+class IsStaffView(APIView):
+    permission_classes = [perm.IsStaffAuthenticated]
+
+    @staticmethod
+    def get(request):
+        return Response({
+            'is_staff': True,
+        })
+
+
+class IsAdminView(APIView):
+    permission_classes = [perm.IsAdminAuthenticated]
+
+    @staticmethod
+    def get(request):
+        return Response({
+            'is_admin': True,
+        })
