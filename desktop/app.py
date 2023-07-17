@@ -1,15 +1,15 @@
-import json
+from datetime import datetime, timedelta
 
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import Qt, QSize, QTimer, QDate
 from PyQt6.QtGui import QKeyEvent
-from PyQt6.QtWidgets import QMainWindow, QApplication, QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QFrame, QLabel, QListWidgetItem
 
+import auth
+import config as cf
+import utils as u
+from bookings import APIBookingsClient, BookingElement
 from pui.loginwindow import Ui_LoginWindow
 from pui.mainwindow import Ui_MainWindow
-
-from bookings import APIBookingsClient
-import utils as u
-import auth
 
 
 class LoginWindow(Ui_LoginWindow, QMainWindow):
@@ -44,52 +44,77 @@ class LoginWindow(Ui_LoginWindow, QMainWindow):
             super().keyPressEvent(event)
 
 
-# Define the colors
-primary_color = "#D27F35"
-secondary_color = "#3A3238"
-surface_color = "#1e1e1e"
-dark_color = "#161315"
-light_color = "#b8b8b8"
-
-
-class MainWindow(Ui_MainWindow, QMainWindow):
+class MainWindow(Ui_MainWindow, QWidget):
     def __init__(self, token_auth):
         super().__init__()
         self.token_auth = token_auth
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.central_widget()
-        self.setStyleSheet(f"""
-            QWidget {{
-                background-color: {surface_color};
-                color: {light_color};
-            }}
-            QLabel {{
-                color: {light_color};
-                font-size: 14px;
-            }}
-        """)
-
+        self.timer = QTimer()
+        self.setupUi(self)
+        u.WindowUtils.center_window(self)
+        self.set_date()
+        self.set_legend()
         self.fetch_bookings()
+        self.setup_links()
+        self.timer.start(15000)  # 15 secondes (15 000 millisecondes)
 
-    def central_widget(self):
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
+    def setup_links(self):
+        self.dateToday.dateChanged.connect(self.fetch_bookings)
+        self.timer.timeout.connect(self.fetch_bookings)
 
-        layout = QVBoxLayout(central_widget)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(self.ui.bookingList)
+    def set_date(self):
+        self.dateToday.setDate(QDate.currentDate())
 
-        self.fetch_bookings()
+    def set_legend(self):
+        self.horizontalLayout.setContentsMargins(10, 10, 10, 10)
+        self.horizontalLayout_2.setContentsMargins(10, 10, 10, 10)
+        self.labelTocome.setStyleSheet("QLabel#labelTocome { color: " + cf.tocome + "; }")
+        self.labelStarted.setStyleSheet("QLabel#labelStarted { color: " + cf.started + "; }")
+        self.labelSoon.setStyleSheet("QLabel#labelSoon { color: " + cf.soon + "; }")
+        self.labelFinished.setStyleSheet("QLabel#labelFinished { color: " + cf.finished + "; }")
 
     def fetch_bookings(self):
-        bookings = APIBookingsClient(self.token_auth.get_token()).get_data()
+        self.bookingList.clear()
+        bookings = APIBookingsClient(self.token_auth.get_token(), str(self.dateToday.date().toPyDate())).get_data()
         if bookings is not None:
             for booking in bookings['results']:
-                self.ui.bookingList.addItem(
-                    f"Booking ID: {booking['id']}, User: {booking['user']}, "
-                    f"Date: {booking['date']}, Time: {booking['time']}, "
-                    f"Players: {booking['num_players']}"
-                )
+                game = BookingElement(booking, self.token_auth.get_token())
+                frame = QFrame(objectName="bookingItemFrame")  # Ajout du QFrame avec le nom d'objet
+                frame.setStyleSheet(
+                    "QFrame#bookingItemFrame { background-color: #1e1e1e; border-radius: 5px; }")
+                frame_layout = QVBoxLayout(frame)
+                frame_layout.setContentsMargins(10, 10, 10, 10)
+
+                label = QLabel("")
+                label_str = (f"ID: {game.id}   |   User: {game.username} ({game.first_name} "
+                             f"{game.last_name} - {game.email})   "
+                             f"|   Time: {game.time}   |   Players: {game.num_players}")
+                label.setObjectName("bookingItemLabel")
+                if game.start_time is not None:
+                    label_str = label_str + f"   |   Start time: {game.start_time}"
+                    if game.chrono is not None and str(game.chrono) != "00:00:00":
+                        label_str = label_str + f"   |   Chrono: {game.chrono}"
+                        label.setStyleSheet(
+                            "QLabel#bookingItemLabel { color: " + cf.finished + "; font-size: " + cf.fsize + "; }")
+                    elif game.start_dt + game.duration < datetime.now() - timedelta(minutes=5):
+                        label.setStyleSheet(
+                            "QLabel#bookingItemLabel { color: " + cf.soon + "; font-size: " + cf.fsize + "; }")
+                    else:
+                        label.setStyleSheet(
+                            "QLabel#bookingItemLabel { color: " + cf.started + "; font-size: " + cf.fsize + "; }")
+                else:
+                    label.setStyleSheet(
+                        "QLabel#bookingItemLabel { color: " + cf.tocome + "; font-size: " + cf.fsize + "; }")
+                label.setText(label_str)
+
+                frame_layout.addWidget(label)
+
+                item = QListWidgetItem()  # Ajouter un nouvel élément à la liste
+                item.setSizeHint(QSize(0, 50))  # Définir la taille de l'élément en fonction du QFrame
+                self.bookingList.addItem(item)  # Add item to the bookingList widget
+                self.bookingList.setItemWidget(item, frame)
         else:
             print("Failed to fetch bookings from the API.")
+
+    def closeEvent(self, event):
+        self.timer.stop()
+        super().closeEvent(event)

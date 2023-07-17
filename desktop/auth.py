@@ -1,5 +1,7 @@
 import requests
 
+import config
+
 
 class TokenGetter:
     def __init__(self):
@@ -22,8 +24,8 @@ class TokenGetter:
 
 class TokenAuth:
     def __init__(self, token=None):
-        self.level = 'is_staff'
-        self.url = 'http://127.0.0.1:8000/api/' + self.level
+        self.level = config.level
+        self.url = 'http://127.0.0.1:8000/api/' + self.level + '/'
         self._token = token
 
     def authorization(self):

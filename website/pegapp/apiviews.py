@@ -1,17 +1,15 @@
 from datetime import datetime
 
 from django.utils import timezone
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 
 from pegapp import models as m
 from pegapp import serializers as s
-from pegapp.permissions import IsStaffAuthenticated, IsAdminAuthenticated
+import pegapp.permissions as perm
 from pegapp.utils import TimeChoices
 
 
@@ -23,9 +21,18 @@ class ScenarioViewset(ReadOnlyModelViewSet):
         return queryset
 
 
+class UserViewset(ReadOnlyModelViewSet):
+    serializer_class = s.UserSerializer
+    permission_classes = [perm.HasAnId, perm.IsStaffAuthenticated]
+
+    def get_queryset(self):
+        queryset = m.User.objects.all()
+        return queryset
+
+
 class BookingViewset(ModelViewSet):
     serializer_class = s.BookingSerializer
-    permission_classes = [IsStaffAuthenticated]
+    permission_classes = [perm.IsStaffAuthenticated]
 
     def get_queryset(self):
         queryset = m.Booking.objects.all()
@@ -130,7 +137,7 @@ class CustomAuthToken(ObtainAuthToken):
 
 
 class IsStaffView(APIView):
-    permission_classes = [IsStaffAuthenticated]
+    permission_classes = [perm.IsStaffAuthenticated]
 
     @staticmethod
     def get(request):
@@ -140,7 +147,7 @@ class IsStaffView(APIView):
 
 
 class IsAdminView(APIView):
-    permission_classes = [IsAdminAuthenticated]
+    permission_classes = [perm.IsAdminAuthenticated]
 
     @staticmethod
     def get(request):

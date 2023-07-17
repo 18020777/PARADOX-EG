@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from pegapp import views, apiviews
 
@@ -27,6 +27,7 @@ router = routers.SimpleRouter()
 # Puis lui déclarons une url basée sur le mot clé ‘scenario’ et notre view
 # afin que l’url générée soit celle que nous souhaitons ‘/api/scenarios/’
 router.register('scenario', apiviews.ScenarioViewset, basename='api_scenario')
+router.register('user', apiviews.UserViewset, basename='api_user')
 router.register('booking', apiviews.BookingViewset, basename='api_booking')
 router.register('room', apiviews.RoomViewset, basename='api_room')
 router.register('prices', apiviews.PricesViewset, basename='api_prices')
