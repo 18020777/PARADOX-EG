@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse, resolve
 
-from pegapp.models import Scenario
+from pegapp.models import Scenario, PricesList
 from pegapp.views import (
     scenario_detail, LoginPage, SignUpPage, account, logout_user,
     BookingPage, home
@@ -21,7 +21,7 @@ class TestUrls(TestCase):
         )
 
         # Get the URL for the scenario detail page with the scenario's ID
-        url = reverse('scenario-detail', args=[scenario.id])
+        url = reverse('scenario_detail', args=[scenario.id])
 
         # Make a GET request to the URL
         response = self.client.get(url)
@@ -59,6 +59,8 @@ class TestUrls(TestCase):
         self.assertEqual(resolve(url).func.view_class, BookingPage)
 
     def test_home_url(self):
+        self.price_list = PricesList.objects.create(
+            prices={"2": 38, "3": 32, "4": 27, "5": 23, "6": 21, "7": 20, "8": 19, "9": 18, "10": 17})
         url = reverse('home')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)

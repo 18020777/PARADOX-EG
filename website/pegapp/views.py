@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
+from django.core.exceptions import ObjectDoesNotExist
 
 from pegapp import forms as f
 from pegapp import models as m
@@ -10,7 +11,10 @@ from pegapp import models as m
 
 def home(request):
     scenarios = m.Scenario.objects.all()
-    prices_list = m.PricesList.objects.get(id=1)
+    try:
+        prices_list = m.PricesList.objects.get(id=1)
+    except ObjectDoesNotExist:
+        prices_list = {}
     context = {'scenarios': scenarios, 'prices_list': prices_list}
     return render(request, 'pegapp/home.html', context)
 
