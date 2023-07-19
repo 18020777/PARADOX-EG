@@ -133,3 +133,6 @@ dmypy.json
 
 # CACHE
 CACHE/
+
+#Coverage
+htmlcov/*
