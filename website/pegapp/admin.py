@@ -1,9 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth import get_user_model
 
 from pegapp import models as m
-
-User = get_user_model()
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -23,7 +20,7 @@ class RoomAdmin(admin.ModelAdmin):
 
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'scenario', 'date', 'time', 'num_players', 'price')
+    list_display = ('id', 'user', 'scenario', 'date', 'time', 'num_players', 'price', 'chrono')
 
 
 class PricesListAdmin(admin.ModelAdmin):
