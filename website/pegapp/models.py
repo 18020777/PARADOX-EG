@@ -102,6 +102,7 @@ class Booking(models.Model):
     def start_game(self):
         try:
             self.start_time = localtime()
+            self.save()
         except Exception as e:
             print(f"An error occurred: {e}")
 
@@ -111,6 +112,7 @@ class Booking(models.Model):
                 self.gameover_time = localtime()
                 time_delta = self.gameover_time - self.start_time
                 self.chrono = str(time_delta).split(".")[0]
+                self.save()
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
