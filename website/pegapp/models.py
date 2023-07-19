@@ -56,7 +56,7 @@ class Booking(models.Model):
     price = models.fields.DecimalField(default=0.00, decimal_places=2, max_digits=5, editable=False)
     start_time = models.DateTimeField(default=None, blank=True, null=True, editable=False)
     gameover_time = models.DateTimeField(default=None, blank=True, null=True, editable=False)
-    chrono = models.fields.DurationField(default=None, blank=True, null=True, editable=False)
+    chrono = models.fields.DurationField(default=timedelta(seconds=0), blank=True, null=True, editable=False)
 
     def clean(self):
         super().clean()
@@ -96,8 +96,8 @@ class Booking(models.Model):
         self.calculate_price()
         super().save(*args, **kwargs)
 
-    # def is_active(self):
-    #     return self.chrono is not None
+    def is_finished(self):
+        return self.chrono is not None and self.chrono != timedelta(seconds=0)
 
     def start_game(self):
         try:
@@ -117,7 +117,7 @@ class Booking(models.Model):
             print('ERROR: The game has not started.')
 
     def __str__(self):
-        return f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'
+        return f'({self.id}) {self.scenario}, {self.num_players} joueurs, {self.date} {self.time}'
 
 
 class PricesList(models.Model):
