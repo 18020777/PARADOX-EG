@@ -1,9 +1,11 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
-from django.core.exceptions import ObjectDoesNotExist
 
 from pegapp import forms as f
 from pegapp import models as m
@@ -23,7 +25,13 @@ def scenario_detail(request, scn_id):
     scenarios = m.Scenario.objects.all()
     this_scenario = get_object_or_404(m.Scenario, id=scn_id)
     gallery = m.Image.objects.filter(scenario__id=scn_id)
-    context = {'scenarios': scenarios, 'this_scenario': this_scenario, 'gallery': gallery}
+    score_list = m.Booking.objects.filter(scenario=this_scenario).exclude(chrono=timedelta(0)).exclude(
+        chrono=None).order_by('chrono')
+    if not score_list:
+        best_score = "Aucun"
+    else:
+        best_score = score_list[0].chrono
+    context = {'scenarios': scenarios, 'this_scenario': this_scenario, 'gallery': gallery, 'best_score': best_score}
     return render(request, 'pegapp/scenario.html', context)
 
 
