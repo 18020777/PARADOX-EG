@@ -116,10 +116,10 @@ class Booking(models.Model):
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
-            print('ERROR: The game has not started.')
+            raise(ValueError('The game has not started yet.'))
 
     def __str__(self):
-        return f'({self.id}) {self.scenario}, {self.num_players} joueurs, {self.date} {self.time}'
+        return f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'
 
 
 class PricesList(models.Model):

@@ -68,9 +68,15 @@ class BookingActionAPIView(APIView):
             try:
                 booking = m.Booking.objects.get(id=booking_id)
                 if action == 'start_game':
-                    booking.start_game()
+                    try:
+                        booking.start_game()
+                    except Exception as e:
+                        return Response({'message': str(e)})
                 elif action == 'end_game':
-                    booking.end_game()
+                    try:
+                        booking.end_game()
+                    except Exception as e:
+                        return Response({'message': str(e)})
                 else:
                     return Response({'message': f'Action {action} could not be performed'})
                 return Response({'message': 'Action performed successfully.'})
