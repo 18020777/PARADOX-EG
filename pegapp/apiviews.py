@@ -7,9 +7,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 
+import pegapp.permissions as perm
 from pegapp import models as m
 from pegapp import serializers as s
-import pegapp.permissions as perm
 from pegapp.utils import TimeChoices
 
 
@@ -59,6 +59,8 @@ class BookingViewset(ModelViewSet):
 
 
 class BookingActionAPIView(APIView):
+    permission_classes = [perm.IsStaffAuthenticated]
+
     @staticmethod
     def post(request):
         serializer = s.BookingIdSerializer(data=request.data)

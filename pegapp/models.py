@@ -50,6 +50,7 @@ class Image(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     scenario = models.ForeignKey('Scenario', on_delete=models.CASCADE)
+    room = models.ForeignKey('Room', on_delete=models.CASCADE, default=None, blank=True, null=True)
     date = models.DateField()
     time = models.TimeField(choices=TimeChoices().time_choices)
     num_players = models.PositiveIntegerField()
@@ -60,7 +61,7 @@ class Booking(models.Model):
 
     def clean(self):
         super().clean()
-        self.validate_booking_availability()
+        self.allocate_room()
         self.validate_num_players()
 
     def validate_booking_availability(self):
@@ -91,6 +92,24 @@ class Booking(models.Model):
         player_price = prices_list.pop(str(self.num_players))
         self.price = player_price * self.num_players
 
+    def allocate_room(self):
+        self.validate_booking_availability()
+
+        same_bookings = Booking.objects.filter(
+            scenario=self.scenario,
+            date=self.date,
+            time=self.time
+        ).exclude(pk=self.pk)
+
+        rooms = Room.objects.filter(scenario=self.scenario)
+        for booking in same_bookings:
+            rooms = rooms.exclude(num=booking.room.num)
+
+        if rooms:
+            self.room = rooms[0]
+        else:
+            print("An error occurred: room could not be allocated.")
+
     def save(self, *args, **kwargs):
         self.full_clean()
         self.calculate_price()
@@ -116,7 +135,7 @@ class Booking(models.Model):
             except Exception as e:
                 print(f"An error occurred: {e}")
         else:
-            raise(ValueError('The game has not started yet.'))
+            raise (ValueError('The game has not started yet.'))
 
     def __str__(self):
         return f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'
