@@ -18,7 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = m.Booking
-        fields = ('id', 'user', 'scenario', 'date', 'time', 'num_players', 'start_time', 'gameover_time', 'chrono')
+        fields = (
+            'id', 'user', 'scenario', 'date', 'time', 'num_players', 'room', 'start_time', 'gameover_time', 'chrono')
 
 
 class BookingIdSerializer(serializers.Serializer):

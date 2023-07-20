@@ -20,7 +20,7 @@ class RoomAdmin(admin.ModelAdmin):
 
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'scenario', 'date', 'time', 'num_players', 'price', 'chrono')
+    list_display = ('id', 'user', 'scenario', 'date', 'time', 'num_players', 'price', 'room', 'chrono')
 
 
 class PricesListAdmin(admin.ModelAdmin):
