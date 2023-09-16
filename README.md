@@ -10,13 +10,13 @@ Les instructions d'exécution en local se trouvent dans leur propre fichier READ
 Le site web est accessible en ligne à l'adresse suivante :
 https://sheltered-oasis-16253-bb111470476b.herokuapp.com/
 
-Voici les démarches pour exécuter le site en local :
+### A. Exécuter le site en local :
 
 1. Cloner le repo
 2. Créez un environnement virtuel dans le dossier racine et activez le
-3. Téléchargez les requirements (pip install -r requirements.txt)
+3. Téléchargez les requirements (`pip install -r requirements.txt`)
 4. Créez une base de données mysql ou mariadb
-5. Importez le backup disponible : mysql -u username -p database-name < backup_paradox_db.sql
+5. Importez le backup disponible : `mysql -u username -p database-name < backup_paradox_db.sql`
 6. Créez un fichier local_settings dans le dossier paradox et insérez-y vos paramètres de connexion à votre BDD :
     ```
    DATABASES = {
@@ -32,5 +32,13 @@ Voici les démarches pour exécuter le site en local :
         }
    }
     ```
-7. python manage.py migrate
-8. python manage.py runserver
+7. `python manage.py migrate`
+8. `python manage.py runserver`
+
+
+### B. Création d'un administrateur local
+
+1. Ouvrez le shell Django : `python manage.py shell`
+2. Importez le modèle *User* : `from pegapp.models import User`
+3. Créez un nouveau super-utilisateur : `User.objects.create_superuser(username='local_admin', password='admin_password')`
+4. Lancez le serveur avec `python manage.py runserver`, rendez vous sur l'[administration Django du site local](http://127.0.0.1:8000/admin) et connectez-vous avec votre identifiant et mot de passe (respectivement `local_admin` et `admin_password` par défaut)
