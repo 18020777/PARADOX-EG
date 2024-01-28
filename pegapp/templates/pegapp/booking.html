@@ -11,6 +11,7 @@
             <label class="">{{ field.label }}</label>
             <div class="input-group w-100">
                 {{ field }}
+                {% if field.name == 'num_players' %}<small id="players_box"></small>{% endif %}
                 {% if field.errors %}
                 <small class="form-text text-danger">
                     {% for error in field.errors %}{{ error }}{% endfor %}
@@ -29,7 +30,6 @@
         </small>
         {% endif %}
         {% csrf_token %}
-        <small id="players_box"></small>
 
         <div class="float-end mt-3">
             <p>Prix Total: <span id="price_box"></span></p>
