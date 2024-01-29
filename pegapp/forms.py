@@ -1,5 +1,6 @@
 from datetime import datetime, timezone, timedelta
 
+from captcha.fields import CaptchaField
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
@@ -10,9 +11,12 @@ from pegapp import models as m
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63, label="Nom d’utilisateur")
     password = forms.CharField(max_length=63, widget=forms.PasswordInput, label="Mot de passe")
+    captcha = CaptchaField()
 
 
 class SignUpForm(UserCreationForm):
+    captcha = CaptchaField()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password1'].label = 'Mot de passe'
@@ -35,6 +39,8 @@ class SignUpForm(UserCreationForm):
 
 
 class BookingForm(forms.ModelForm):
+    captcha = CaptchaField()
+
     class Meta:
         model = m.Booking
         fields = ['scenario', 'date', 'time', 'num_players']

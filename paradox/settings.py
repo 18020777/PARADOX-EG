@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'compressor',
     'coverage',
+    'captcha',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
@@ -151,10 +152,12 @@ REST_FRAMEWORK = {
 }
 
 # Login views
-
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+CAPTCHA_LENGTH = 6
+CAPTCHA_FONT_SIZE = 35
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
