@@ -34,8 +34,8 @@ else:
     SECRET_KEY = 'hz=_bcytv^ptq(u0al)z60%*#+hy*v994(-anooc&8p7r+!r(a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if not IS_HEROKU_APP:
-    DEBUG = True
+# if not IS_HEROKU_APP:
+DEBUG = True
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
