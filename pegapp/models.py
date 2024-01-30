@@ -138,7 +138,10 @@ class Booking(models.Model):
             raise (ValueError('The game has not started yet.'))
 
     def __str__(self):
-        return f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'
+        show_booking = f'{self.date} à {self.time} : {self.scenario}, {self.num_players} joueurs.'
+        if self.is_finished():
+            show_booking += f' Chrono = {self.chrono}'
+        return show_booking
 
 
 class PricesList(models.Model):
