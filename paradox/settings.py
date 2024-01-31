@@ -34,8 +34,10 @@ else:
     SECRET_KEY = 'hz=_bcytv^ptq(u0al)z60%*#+hy*v994(-anooc&8p7r+!r(a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# if not IS_HEROKU_APP:
-DEBUG = True
+if IS_HEROKU_APP:
+    DEBUG = False
+else:
+    DEBUG = True
 
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ["*"]
@@ -65,6 +67,7 @@ MEDIA_URL = '/media/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,9 +136,16 @@ AUTH_USER_MODEL = 'pegapp.User'
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'OPTIONS': {
+            'user_attributes': ('username', 'email', 'first_name', 'last_name'),
+            'max_similarity': 0.7,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -156,8 +166,20 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
+# Security parameters
 CAPTCHA_LENGTH = 6
 CAPTCHA_FONT_SIZE = 35
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_HSTS_SECONDS = True
+if IS_HEROKU_APP:
+    SECURE_SSL_REDIRECT = True
+
+X_FRAME_OPTIONS = 'DENY'
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

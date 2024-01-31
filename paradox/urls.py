@@ -33,7 +33,7 @@ router.register('room', apiviews.RoomViewset, basename='api_room')
 router.register('prices', apiviews.PricesViewset, basename='api_prices')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('peg-admin-magic-portal/', admin.site.urls),
     path('scenario/<int:scn_id>/', views.scenario_detail, name='scenario_detail'),
     path('login/', views.LoginPage.as_view(), name='login'),
     path('signup/', views.SignUpPage.as_view(), name='signup'),
